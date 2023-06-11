@@ -1,0 +1,12 @@
+create_table("users") {
+  t.Column("id", "uuid", {primary: true})
+  t.Column("fname", "string", {})
+  t.Column("lname", "string", {})
+  t.Column("email", "string", {})
+  t.Column("age", "integer", {"default": 0})
+  t.Column("admin", "bool", {"default": false})
+  t.Column("joined_at", "timestamp", {})
+}
+
+add_index("users", ["lname", "fname"], {})
+add_index("users", "email", {"unique": true})
