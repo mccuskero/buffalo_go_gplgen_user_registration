@@ -9,4 +9,3 @@ import (
 type Resolver struct {
 	UserStore map[string]model.User
 }
-

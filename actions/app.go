@@ -4,6 +4,18 @@ import (
 	"net/http"
 	"sync"
 
+	//	"time"
+
+	"github.com/99designs/gqlgen/graphql/handler"
+	//	"github.com/99designs/gqlgen/graphql/handler/transport"
+	"github.com/99designs/gqlgen/graphql/playground"
+	//	"github.com/gorilla/sessions"
+	//	"github.com/gorilla/websocket"
+
+	"buffalo_go_gplgen_user_registration/graph"
+
+	"github.com/rs/cors"
+
 	"buffalo_go_gplgen_user_registration/locales"
 	"buffalo_go_gplgen_user_registration/models"
 	"buffalo_go_gplgen_user_registration/public"
@@ -11,7 +23,9 @@ import (
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo-pop/v3/pop/popmw"
 	"github.com/gobuffalo/envy"
-	"github.com/gobuffalo/middleware/csrf"
+
+	//	"github.com/gobuffalo/middleware/csrf"
+	"github.com/gobuffalo/middleware/contenttype"
 	"github.com/gobuffalo/middleware/forcessl"
 	"github.com/gobuffalo/middleware/i18n"
 	"github.com/gobuffalo/middleware/paramlogger"
@@ -49,14 +63,16 @@ func App() *buffalo.App {
 		})
 
 		// Automatically redirect to SSL
-		app.Use(forceSSL())
+		// app.Use(forceSSL())
 
 		// Log request parameters (filters apply).
 		app.Use(paramlogger.ParameterLogger)
 
+		app.Use(contenttype.Set("application/json"))
+
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
-		app.Use(csrf.New)
+		// app.Use(csrf.New)
 
 		// Wraps each request in a transaction.
 		//   c.Value("tx").(*pop.Connection)
@@ -64,6 +80,27 @@ func App() *buffalo.App {
 		app.Use(popmw.Transaction(models.DB))
 		// Setup and use translations:
 		app.Use(translations())
+
+		c := cors.New(cors.Options{
+			AllowedOrigins:   []string{"http://localhost:3000"},
+			AllowCredentials: true,
+		})
+
+		srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+
+		/*
+			srv.AddTransport(transport.POST{})
+			srv.AddTransport(transport.Websocket{
+				KeepAlivePingInterval: 10 * time.Second,
+				Upgrader: websocket.Upgrader{
+					CheckOrigin: func(r *http.Request) bool {
+						return true
+					},
+				},
+			})
+		*/
+		app.POST("/query", buffalo.WrapHandler(c.Handler(srv)))
+		app.GET("/play", buffalo.WrapHandler(playground.Handler("Example", "/query")))
 
 		app.GET("/", HomeHandler)
 
