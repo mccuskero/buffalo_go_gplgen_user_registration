@@ -11,7 +11,6 @@ require (
 	github.com/gobuffalo/middleware v1.0.0
 	github.com/gobuffalo/pop/v6 v6.1.1
 	github.com/gobuffalo/suite/v4 v4.0.4
-	github.com/gorilla/websocket v1.5.0
 	github.com/rs/cors v1.7.0
 	github.com/unrolled/secure v1.13.0
 	github.com/vektah/gqlparser/v2 v2.5.2-0.20230422221642-25e09f9d292d
@@ -49,6 +48,7 @@ require (
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.1 // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
