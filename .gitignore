@@ -30,4 +30,4 @@ generated/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-tools.go
+/tools.go
