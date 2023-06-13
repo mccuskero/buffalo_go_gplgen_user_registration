@@ -99,6 +99,7 @@ func App() *buffalo.App {
 				},
 			})
 		*/
+		
 		app.ANY("/query", buffalo.WrapHandler(c.Handler(srv)))
 		app.GET("/play", buffalo.WrapHandler(playground.Handler("Example", "/query")))
 
