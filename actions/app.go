@@ -24,7 +24,7 @@ import (
     "github.com/gobuffalo/buffalo-pop/v3/pop/popmw"
     "github.com/gobuffalo/envy"
 
-    "github.com/gobuffalo/middleware/csrf"
+//    "github.com/gobuffalo/middleware/csrf"
 //  "github.com/gobuffalo/middleware/contenttype"
     "github.com/gobuffalo/middleware/forcessl"
     "github.com/gobuffalo/middleware/i18n"
@@ -69,7 +69,7 @@ func App() *buffalo.App {
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
-		app.Use(csrf.New)
+		// app.Use(csrf.New)
 
 		// Wraps each request in a transaction.
 		//   c.Value("tx").(*pop.Connection)
