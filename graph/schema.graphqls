@@ -1,6 +1,6 @@
-# GraphQL schema example
+# GraphQL schema for user registration
 #
-# https://gqlgen.com/getting-started/
+# https://github.com/mccuskero/go_buffalo_gplgen_user_registration/blob/main/graph/schema.graphqls
 
 type User {
   id: ID!
